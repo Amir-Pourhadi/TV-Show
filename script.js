@@ -25,10 +25,25 @@ function createCard(url, name, season, number, image, summary) {
 	const img = document.createElement("img");
 	img.src = image.medium;
 	img.alt = name;
-	img.className = 'card-img'
+	img.className = "card-img m-auto";
 	card.appendChild(img);
 
+	const desc = document.createElement("p");
+	desc.className = "card-desc position-absolute text-center invisible";
+	let descText = summary.slice(3, -4);
+	if (descText.length > 250) descText = descText.substr(0, 250) + " ...";
+	desc.append(descText);
+	card.appendChild(desc);
+
 	container.appendChild(card);
+
+	function changeVisibility() {
+		img.classList.toggle("invisible");
+		desc.classList.toggle("invisible");
+	}
+
+	card.addEventListener("mouseover", changeVisibility);
+	card.addEventListener("mouseout", changeVisibility);
 }
 
 function getEpisodeNum(number) {
