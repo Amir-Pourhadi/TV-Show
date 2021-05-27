@@ -101,4 +101,6 @@ function shortDescText(summary) {
 	return result + ".";
 }
 
-document.addEventListener("load", getData("https://api.tvmaze.com/shows/5/episodes"));
+const currentAPI = document.querySelector(".api-select");
+window.addEventListener("load", (evt) => getData(currentAPI.value));
+currentAPI.addEventListener("change", (evt) => getData(evt.target.value));
