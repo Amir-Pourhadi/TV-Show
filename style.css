@@ -1,6 +1,13 @@
-.input-group {
-	width: 25%;
-	margin: 30px 50px 10px;
+.input-search {
+	width: 26%;
+}
+
+.episode-select {
+	width: 26%;
+}
+
+.api-select {
+	width: 26%;
 }
 
 .card {
