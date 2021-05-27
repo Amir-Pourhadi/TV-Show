@@ -1,19 +1,45 @@
-const data = getData("https://api.tvmaze.com/shows/82/episodes");
-
 async function getData(url) {
+	const input = document.querySelector(".form-control");
 	try {
 		const { data } = await axios.get(url);
-		for (const { url, name, season, number, image, summary } of data) {
-			createCard(url, name, season, number, image, summary);
-		}
+		showCards(data);
+		input.addEventListener("input", () => showCards(data));
 	} catch (error) {
-		//TODO do sth to catch errors
 		console.log(error);
 	}
 }
 
+function showCards(data) {
+	document.querySelector("main").innerText = "";
+
+	for (const { url, name, season, number, image, summary } of search(data)) {
+		createCard(url, name, season, number, image, summary);
+	}
+}
+
+function search(data) {
+	const input = document.querySelector(".form-control");
+	const inputLabel = document.querySelector(".input-group-text");
+
+	if (!input.value) {
+		inputLabel.classList.remove("bg-success");
+		inputLabel.classList.add("bg-warning");
+		return data;
+	}
+
+	inputLabel.classList.add("bg-success");
+	inputLabel.classList.remove("bg-warning");
+
+	const regExp = new RegExp(input.value, "i");
+	return data.filter(
+		({ name, summary, season, number }) =>
+			regExp.test(name) || regExp.test(summary) || regExp.test(getEpisodeNum(season, number))
+	);
+}
+
 function createCard(url, name, season, number, image, summary) {
 	const container = document.querySelector("main");
+
 	const card = document.createElement("div");
 	card.className = "card shadow";
 
@@ -25,7 +51,7 @@ function createCard(url, name, season, number, image, summary) {
 
 	const header = document.createElement("div");
 	header.className = "card-header text-center border border-3 border-success rounded-pill";
-	header.append(`${name} - S${getEpisodeNum(season)}E${getEpisodeNum(number)}`);
+	header.append(`${name} - ${getEpisodeNum(season, number)}`);
 	urlDiv.appendChild(header);
 
 	card.appendChild(urlDiv);
@@ -53,8 +79,8 @@ function createCard(url, name, season, number, image, summary) {
 	card.addEventListener("mouseout", changeVisibility);
 }
 
-function getEpisodeNum(number) {
-	return number.toString().padStart(2, "0");
+function getEpisodeNum(season, number) {
+	return `S${season.toString().padStart(2, "0")}E${number.toString().padStart(2, "0")}`;
 }
 
 function shortDescText(summary) {
@@ -66,3 +92,5 @@ function shortDescText(summary) {
 	}
 	return result + ".";
 }
+
+document.addEventListener("load", getData("https://api.tvmaze.com/shows/82/episodes"));

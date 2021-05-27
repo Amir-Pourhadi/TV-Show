@@ -1,3 +1,8 @@
+.input-group {
+	width: 25%;
+	margin: 30px 50px 10px;
+}
+
 .card {
 	width: 26vw;
 	height: 50vh;
