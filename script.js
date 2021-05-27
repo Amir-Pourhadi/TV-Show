@@ -38,9 +38,8 @@ function createCard(url, name, season, number, image, summary) {
 
 	const desc = document.createElement("p");
 	desc.className = "card-desc position-absolute text-center invisible";
-	let descText = summary.slice(3, -4);
-	if (descText.length > 250) descText = descText.substr(0, 250) + " ...";
-	desc.append(descText);
+
+	desc.append(shortDescText(summary));
 	card.appendChild(desc);
 
 	container.appendChild(card);
@@ -50,10 +49,20 @@ function createCard(url, name, season, number, image, summary) {
 		desc.classList.toggle("invisible");
 	}
 
-	img.addEventListener("mouseover", changeVisibility);
-	desc.addEventListener("mouseout", changeVisibility);
+	card.addEventListener("mouseover", changeVisibility);
+	card.addEventListener("mouseout", changeVisibility);
 }
 
 function getEpisodeNum(number) {
 	return number.toString().padStart(2, "0");
+}
+
+function shortDescText(summary) {
+	let lastIndex = summary.lastIndexOf(".");
+	let result = summary.slice(3, lastIndex);
+	while (result.length > 250) {
+		lastIndex = result.lastIndexOf(".");
+		result = result.slice(0, lastIndex);
+	}
+	return result + ".";
 }

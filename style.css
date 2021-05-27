@@ -2,6 +2,7 @@
 	width: 26vw;
 	height: 50vh;
 	margin: 30px 20px 10px;
+	cursor: default;
 }
 
 .card-header {
