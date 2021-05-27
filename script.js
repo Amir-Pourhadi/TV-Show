@@ -5,7 +5,7 @@ async function getData(url) {
 		showCards(data);
 		input.addEventListener("input", () => showCards(data));
 	} catch (error) {
-		console.log(error);
+		alert("OMG! You faced an error and I don't know how to handle it :))");
 	}
 }
 
@@ -24,17 +24,25 @@ function search(data) {
 	if (!input.value) {
 		inputLabel.classList.remove("bg-success");
 		inputLabel.classList.add("bg-warning");
+		inputLabel.innerText = "Search";
 		return data;
 	}
 
 	inputLabel.classList.add("bg-success");
 	inputLabel.classList.remove("bg-warning");
+	inputLabel.classList.remove("bg-danger");
 
 	const regExp = new RegExp(input.value, "i");
-	return data.filter(
+	const filteredData = data.filter(
 		({ name, summary, season, number }) =>
 			regExp.test(name) || regExp.test(summary) || regExp.test(getEpisodeNum(season, number))
 	);
+	inputLabel.innerText = filteredData.length + "/" + data.length;
+	if (!filteredData.length) {
+		inputLabel.classList.remove("bg-success");
+		inputLabel.classList.add("bg-danger");
+	}
+	return filteredData;
 }
 
 function createCard(url, name, season, number, image, summary) {
@@ -93,4 +101,4 @@ function shortDescText(summary) {
 	return result + ".";
 }
 
-document.addEventListener("load", getData("https://api.tvmaze.com/shows/82/episodes"));
+document.addEventListener("load", getData("https://api.tvmaze.com/shows/5/episodes"));
