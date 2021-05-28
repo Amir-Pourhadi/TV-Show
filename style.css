@@ -11,10 +11,12 @@
 }
 
 .card {
-	width: 26vw;
-	height: 50vh;
-	margin: 30px 20px 10px;
+	width: 400px;
+	height: 45vh;
+	margin: 20px 5px 10px;
 	cursor: default;
+	perspective: 1000px;
+	transition: box-shadow 0.5s;
 }
 
 .card-header {
@@ -23,13 +25,42 @@
 }
 
 .card-img {
-	width: 90%;
-	border-radius: 10px;
+	border-radius: 20px;
+	border: dashed black 2px;
 }
 
 .card-desc {
 	width: 80%;
-	top: 33%;
+	top: 10%;
 	left: 10%;
-	font-size: larger;
+}
+
+.card-inner {
+	transition: transform 1s;
+	transform-style: preserve-3d;
+}
+
+.card:hover .card-inner {
+	transform: rotateY(180deg);
+}
+
+.card:hover {
+	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+		rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px !important;
+}
+
+.card-front,
+.card-back {
+	position: absolute;
+	width: 90%;
+	height: 85%;
+	backface-visibility: hidden;
+}
+
+.card-back {
+	text-align: justify;
+	border-radius: 20px;
+	background-color: dodgerblue;
+	color: white;
+	transform: rotateY(180deg);
 }

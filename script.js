@@ -14,7 +14,7 @@ async function getData(url) {
 		episodeSelect.addEventListener("change", () => showCards(data, episodeSelect.value));
 		searchInput.addEventListener("input", () => showCards(data, searchInput.value));
 	} catch (error) {
-		alert("OMG! You faced an error and I don't know how to handle it :))");
+		alert("OMG! You faced an error and I don't know how to handle it :C");
 	}
 }
 
@@ -60,40 +60,48 @@ function createCard(url, name, season, number, image, summary) {
 	const card = document.createElement("div");
 	card.className = "card shadow";
 
+	const header = document.createElement("div");
+	header.className = "card-header text-center border border-3 border-success rounded-pill";
+
 	const urlDiv = document.createElement("a");
 	urlDiv.style.textDecoration = "none";
 	urlDiv.style.color = "black";
 	urlDiv.href = url;
 	urlDiv.target = "/";
+	urlDiv.append(`${name} - ${getEpisodeNum(season, number)}`);
+	
+	header.appendChild(urlDiv);
 
-	const header = document.createElement("div");
-	header.className = "card-header text-center border border-3 border-success rounded-pill";
-	header.append(`${name} - ${getEpisodeNum(season, number)}`);
-	urlDiv.appendChild(header);
+	card.appendChild(header);
 
-	card.appendChild(urlDiv);
+	const innerCard = document.createElement("div");
+	innerCard.className = "card-inner d-flex justify-content-center w-100 h-100";
+
+	const front = document.createElement("div");
+	front.className = "card-front";
 
 	const img = document.createElement("img");
 	img.src = image.medium;
 	img.alt = name;
-	img.className = "card-img m-auto";
-	card.appendChild(img);
+	img.className = "card-img";
+	front.appendChild(img);
+
+	innerCard.appendChild(front);
+
+	const back = document.createElement("div");
+	back.className = "card-back";
 
 	const desc = document.createElement("p");
-	desc.className = "card-desc position-absolute text-center invisible";
+	desc.className = "card-desc position-absolute fs-6";
 
 	desc.append(shortDescText(summary));
-	card.appendChild(desc);
+	back.appendChild(desc);
+
+	innerCard.appendChild(back);
+
+	card.appendChild(innerCard);
 
 	container.appendChild(card);
-
-	function changeVisibility() {
-		img.classList.toggle("invisible");
-		desc.classList.toggle("invisible");
-	}
-
-	card.addEventListener("mouseover", changeVisibility);
-	card.addEventListener("mouseout", changeVisibility);
 }
 
 function getEpisodeNum(season, number) {
@@ -103,7 +111,7 @@ function getEpisodeNum(season, number) {
 function shortDescText(summary) {
 	let lastIndex = summary.lastIndexOf(".");
 	let result = summary.slice(3, lastIndex);
-	while (result.length > 250) {
+	while (result.length > 260) {
 		lastIndex = result.lastIndexOf(".");
 		result = result.slice(0, lastIndex);
 	}
