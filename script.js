@@ -1,27 +1,34 @@
 async function getData(url) {
-	const input = document.querySelector(".form-control");
 	try {
 		const { data } = await axios.get(url);
+
+		const searchInput = document.querySelector(".form-control");
+		const episodeSelect = document.querySelector(".episode-select");
+
+		searchInput.value = "";
+		episodeSelect.innerText = "";
+
+		addEpisodes(data);
 		showCards(data);
-		input.addEventListener("input", () => showCards(data));
+
+		episodeSelect.addEventListener("change", () => showCards(data, episodeSelect.value));
+		searchInput.addEventListener("input", () => showCards(data, searchInput.value));
 	} catch (error) {
 		alert("OMG! You faced an error and I don't know how to handle it :))");
 	}
 }
 
-function showCards(data) {
+function showCards(data, value) {
 	document.querySelector("main").innerText = "";
 
-	for (const { url, name, season, number, image, summary } of search(data)) {
+	for (const { url, name, season, number, image, summary } of search(data, value))
 		createCard(url, name, season, number, image, summary);
-	}
 }
 
-function search(data) {
-	const input = document.querySelector(".form-control");
+function search(data, value) {
 	const inputLabel = document.querySelector(".input-group-text");
 
-	if (!input.value) {
+	if (!value) {
 		inputLabel.classList.remove("bg-success");
 		inputLabel.classList.add("bg-warning");
 		inputLabel.innerText = "Search";
@@ -32,12 +39,14 @@ function search(data) {
 	inputLabel.classList.remove("bg-warning");
 	inputLabel.classList.remove("bg-danger");
 
-	const regExp = new RegExp(input.value, "i");
+	const regExp = new RegExp(value, "i");
 	const filteredData = data.filter(
 		({ name, summary, season, number }) =>
 			regExp.test(name) || regExp.test(summary) || regExp.test(getEpisodeNum(season, number))
 	);
+
 	inputLabel.innerText = filteredData.length + "/" + data.length;
+
 	if (!filteredData.length) {
 		inputLabel.classList.remove("bg-success");
 		inputLabel.classList.add("bg-danger");
@@ -99,6 +108,24 @@ function shortDescText(summary) {
 		result = result.slice(0, lastIndex);
 	}
 	return result + ".";
+}
+
+function addEpisodes(data) {
+	const episodeSelect = document.querySelector(".episode-select");
+
+	const defaultOption = document.createElement("option");
+	defaultOption.value = "";
+	defaultOption.append("All Episodes");
+	episodeSelect.appendChild(defaultOption);
+
+	for (const { name, season, number } of data) {
+		const episodeCode = getEpisodeNum(season, number);
+
+		const option = document.createElement("option");
+		option.value = episodeCode;
+		option.append(`${episodeCode} - ${name}`);
+		episodeSelect.appendChild(option);
+	}
 }
 
 const currentAPI = document.querySelector(".api-select");
