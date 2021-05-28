@@ -1,7 +1,7 @@
 async function getData(url) {
 	try {
 		const { data } = await axios.get(url);
-
+		document.body.style.background = "linear-gradient(#ffaf7b, #d76d77, #3a1c71)";
 		const searchInput = document.querySelector(".form-control");
 		const episodeSelect = document.querySelector(".episode-select");
 
@@ -61,7 +61,7 @@ function createCard(url, name, season, number, image, summary) {
 	card.className = "card shadow";
 
 	const header = document.createElement("div");
-	header.className = "card-header text-center border border-3 border-success rounded-pill";
+	header.className = "card-header text-center w-100";
 
 	const urlDiv = document.createElement("a");
 	urlDiv.style.textDecoration = "none";
@@ -69,7 +69,7 @@ function createCard(url, name, season, number, image, summary) {
 	urlDiv.href = url;
 	urlDiv.target = "/";
 	urlDiv.append(`${name} - ${getEpisodeNum(season, number)}`);
-	
+
 	header.appendChild(urlDiv);
 
 	card.appendChild(header);

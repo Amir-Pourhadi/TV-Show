@@ -16,17 +16,17 @@
 	margin: 20px 5px 10px;
 	cursor: default;
 	perspective: 1000px;
-	transition: box-shadow 0.5s;
+	transition: all 1s;
 }
 
 .card-header {
-	margin: 20px 10px;
+	margin: 20px 0;
 	font-weight: bold;
+	background: linear-gradient(to left, #19547b, #c4e0e5 30% 70%, #19547b);
 }
 
 .card-img {
 	border-radius: 20px;
-	border: dashed black 2px;
 }
 
 .card-desc {
@@ -36,17 +36,12 @@
 }
 
 .card-inner {
-	transition: transform 1s;
+	transition: transform 1s 0.5s;
 	transform-style: preserve-3d;
 }
 
 .card:hover .card-inner {
 	transform: rotateY(180deg);
-}
-
-.card:hover {
-	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-		rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px !important;
 }
 
 .card-front,
@@ -63,4 +58,10 @@
 	background-color: dodgerblue;
 	color: white;
 	transform: rotateY(180deg);
+}
+
+.card:hover {
+	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+		rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px !important;
+	transform: scale(1.06);
 }
