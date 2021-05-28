@@ -65,3 +65,12 @@
 		rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px !important;
 	transform: scale(1.06);
 }
+
+.scroll-btn {
+	font-size: 50px;
+	bottom: 20px;
+	right: 20px;
+	cursor: pointer;
+	z-index: 99;
+	transition: 0.2s ease-in-out;
+}

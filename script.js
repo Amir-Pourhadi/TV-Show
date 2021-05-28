@@ -8,6 +8,7 @@ async function getData(url) {
 		searchInput.value = "";
 		episodeSelect.innerText = "";
 
+		makeScrollBtn();
 		addEpisodes(data);
 		showCards(data);
 
@@ -138,7 +139,21 @@ function addEpisodes(data) {
 	}
 }
 
+function makeScrollBtn() {
+	const scrollBtn = document.createElement("i");
+	scrollBtn.className = "scroll-btn fas fa-chevron-circle-up position-fixed invisible";
+	document.body.appendChild(scrollBtn);
+
+	scrollBtn.addEventListener("click", () => (document.documentElement.scrollTop = 0));
+}
+
+function showScrollBtn() {
+	const scrollBtn = document.querySelector(".scroll-btn");
+	if (document.documentElement.scrollTop > 600) scrollBtn.classList.remove("invisible");
+	else scrollBtn.classList.add("invisible");
+}
+
 const currentAPI = document.querySelector(".api-select");
 window.addEventListener("load", (evt) => getData(currentAPI.value));
 currentAPI.addEventListener("change", (evt) => getData(evt.target.value));
-window.addEventListener("scroll", () => console.log("hi"));
+window.addEventListener("scroll", showScrollBtn);
