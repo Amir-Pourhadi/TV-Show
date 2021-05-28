@@ -29,6 +29,7 @@ function search(data, value) {
 	const inputLabel = document.querySelector(".input-group-text");
 
 	if (!value) {
+		inputLabel.classList.remove("bg-danger");
 		inputLabel.classList.remove("bg-success");
 		inputLabel.classList.add("bg-warning");
 		inputLabel.innerText = "Search";
