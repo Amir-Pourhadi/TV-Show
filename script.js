@@ -154,6 +154,6 @@ function showScrollBtn() {
 }
 
 const currentAPI = document.querySelector(".api-select");
-window.addEventListener("load", (evt) => getData(currentAPI.value));
+window.addEventListener("load", () => getData(currentAPI.value));
 currentAPI.addEventListener("change", (evt) => getData(evt.target.value));
 window.addEventListener("scroll", showScrollBtn);
