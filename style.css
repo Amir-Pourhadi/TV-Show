@@ -12,7 +12,7 @@
 
 .card {
 	width: 400px;
-	height: 45vh;
+	height: 300px;
 	margin: 20px 5px 10px;
 	cursor: default;
 	perspective: 1000px;

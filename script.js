@@ -1,7 +1,7 @@
 async function getData(url) {
 	try {
 		const { data } = await axios.get(url);
-		document.body.style.background = "linear-gradient(#ffaf7b, #d76d77, #3a1c71)";
+		document.body.style.background = "no-repeat linear-gradient(#ffaf7b, #d76d77, #3a1c71)";
 		const searchInput = document.querySelector(".form-control");
 		const episodeSelect = document.querySelector(".episode-select");
 
@@ -20,8 +20,11 @@ async function getData(url) {
 
 function showCards(data, value) {
 	document.querySelector("main").innerText = "";
+	const filteredData = search(data, value);
+	if (filteredData.length < 4) document.body.style.height = "100vh";
+	else document.body.style.removeProperty("height");
 
-	for (const { url, name, season, number, image, summary } of search(data, value))
+	for (const { url, name, season, number, image, summary } of filteredData)
 		createCard(url, name, season, number, image, summary);
 }
 
@@ -30,14 +33,12 @@ function search(data, value) {
 
 	if (!value) {
 		inputLabel.classList.remove("bg-danger");
-		inputLabel.classList.remove("bg-success");
-		inputLabel.classList.add("bg-warning");
-		inputLabel.innerText = "Search";
+		inputLabel.classList.add("bg-success");
+		inputLabel.innerText = data.length + "/" + data.length;
 		return data;
 	}
 
 	inputLabel.classList.add("bg-success");
-	inputLabel.classList.remove("bg-warning");
 	inputLabel.classList.remove("bg-danger");
 
 	const regExp = new RegExp(value, "i");
@@ -140,3 +141,4 @@ function addEpisodes(data) {
 const currentAPI = document.querySelector(".api-select");
 window.addEventListener("load", (evt) => getData(currentAPI.value));
 currentAPI.addEventListener("change", (evt) => getData(evt.target.value));
+window.addEventListener("scroll", () => console.log("hi"));
