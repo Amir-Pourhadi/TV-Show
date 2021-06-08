@@ -1,7 +1,8 @@
 async function getData(url) {
 	try {
 		const { data } = await axios.get(url);
-		document.body.style.background = "no-repeat linear-gradient(#ffaf7b, #d76d77, #3a1c71)";
+
+		document.body.style.background = "linear-gradient(#4568dc, #b06ab3)";
 		const searchInput = document.querySelector(".form-control");
 		const episodeSelect = document.querySelector(".episode-select");
 
@@ -10,7 +11,7 @@ async function getData(url) {
 
 		makeScrollBtn();
 		addEpisodes(data);
-		showCards(data);
+		showCards(data, searchInput.value);
 
 		episodeSelect.addEventListener("change", () => showCards(data, episodeSelect.value));
 		searchInput.addEventListener("input", () => showCards(data, searchInput.value));
@@ -149,8 +150,9 @@ function makeScrollBtn() {
 
 function showScrollBtn() {
 	const scrollBtn = document.querySelector(".scroll-btn");
-	if (document.documentElement.scrollTop > 600) scrollBtn.classList.remove("invisible");
-	else scrollBtn.classList.add("invisible");
+	document.documentElement.scrollTop > 600
+		? scrollBtn.classList.remove("invisible")
+		: scrollBtn.classList.add("invisible");
 }
 
 const currentAPI = document.querySelector(".api-select");
