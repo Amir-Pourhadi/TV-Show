@@ -83,8 +83,8 @@
 
 .scroll-btn {
 	font-size: 50px;
-	bottom: 20px;
-	right: 20px;
+	bottom: 27px;
+	right: 10px;
 	cursor: pointer;
 	z-index: 99;
 	transition: 0.2s ease-in-out;
