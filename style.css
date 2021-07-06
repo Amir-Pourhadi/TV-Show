@@ -15,14 +15,17 @@
 
 .input-search {
 	width: 26%;
+	min-width: 220px;
 }
 
 .episode-select {
 	width: 26%;
+	min-width: 220px;
 }
 
 .api-select {
 	width: 26%;
+	min-width: 220px;
 }
 
 .card {
