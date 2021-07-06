@@ -16,7 +16,7 @@ async function getData(url) {
 		episodeSelect.addEventListener("change", () => showCards(data, episodeSelect.value));
 		searchInput.addEventListener("input", () => showCards(data, searchInput.value));
 	} catch (error) {
-		alert("OMG! You faced an error and I don't know how to handle it 😭");
+		alert("If you live in Iran, You need to change your IP to access database! 😭");
 	}
 }
 
