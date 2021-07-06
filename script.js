@@ -162,8 +162,36 @@ function showScrollBtn() {
 		: scrollBtn.classList.add("invisible");
 }
 
+/* ---------- Change Large Header Elements to Small with Bootstrap ---------- */
+function makeHeaderSmaller(evt) {
+	const headerEls = document.querySelectorAll("header > *");
+
+	if (window.innerWidth < 768) {
+		headerEls[0].classList.remove("form-select-lg");
+		headerEls[0].classList.add("form-select-sm");
+
+		headerEls[1].classList.remove("input-group-lg");
+		headerEls[1].classList.add("input-group-sm");
+
+		headerEls[2].classList.remove("form-select-lg");
+		headerEls[2].classList.add("form-select-sm");
+	} else {
+		headerEls[0].classList.remove("form-select-sm");
+		headerEls[0].classList.add("form-select-lg");
+
+		headerEls[1].classList.remove("input-group-sm");
+		headerEls[1].classList.add("input-group-lg");
+
+		headerEls[2].classList.remove("form-select-sm");
+		headerEls[2].classList.add("form-select-lg");
+	}
+}
+
 /* -------------------- Load Page and Change Movie Events ------------------- */
 const currentAPI = document.querySelector(".api-select");
 window.addEventListener("load", () => getData(currentAPI.value));
 currentAPI.addEventListener("change", (evt) => getData(evt.target.value));
 window.addEventListener("scroll", showScrollBtn);
+
+window.addEventListener("load", makeHeaderSmaller);
+window.addEventListener("resize", makeHeaderSmaller);

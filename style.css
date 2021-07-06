@@ -13,19 +13,16 @@
 	);
 }
 
-.input-search {
+.header > * {
 	width: 26%;
 	min-width: 220px;
 }
 
-.episode-select {
-	width: 26%;
-	min-width: 220px;
-}
-
-.api-select {
-	width: 26%;
-	min-width: 220px;
+@media screen and (max-width: 768px) {
+	.header > * {
+		width: 70%;
+		margin-bottom: 6px;
+	}
 }
 
 .card {
