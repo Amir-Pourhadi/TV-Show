@@ -16,7 +16,7 @@ async function getData(url) {
 		episodeSelect.addEventListener("change", () => showCards(data, episodeSelect.value));
 		searchInput.addEventListener("input", () => showCards(data, searchInput.value));
 	} catch (error) {
-		alert("OMG! You faced an error and I don't know how to handle it :C");
+		alert("OMG! You faced an error and I don't know how to handle it 😭");
 	}
 }
 
@@ -32,16 +32,19 @@ function showCards(data, value) {
 
 function search(data, value) {
 	const inputLabel = document.querySelector(".input-group-text");
+	const footer = document.querySelector("footer");
 
 	if (!value) {
 		inputLabel.classList.remove("bg-danger");
 		inputLabel.classList.add("bg-success");
 		inputLabel.innerText = data.length + "/" + data.length;
+		footer.classList.remove("invisible");
 		return data;
 	}
-
+	
 	inputLabel.classList.add("bg-success");
 	inputLabel.classList.remove("bg-danger");
+	footer.classList.add("invisible");
 
 	const regExp = new RegExp(value, "i");
 	const filteredData = data.filter(
@@ -122,6 +125,7 @@ function shortDescText(summary) {
 	return result + ".";
 }
 
+/* ---------------------- Add Option to Episode Select ---------------------- */
 function addEpisodes(data) {
 	const episodeSelect = document.querySelector(".episode-select");
 
@@ -140,6 +144,7 @@ function addEpisodes(data) {
 	}
 }
 
+/* ------------------------------ Scroll Button ----------------------------- */
 function makeScrollBtn() {
 	const scrollBtn = document.createElement("i");
 	scrollBtn.className = "scroll-btn fas fa-chevron-circle-up position-fixed invisible";
@@ -155,6 +160,7 @@ function showScrollBtn() {
 		: scrollBtn.classList.add("invisible");
 }
 
+/* -------------------- Load Page and Change Movie Events ------------------- */
 const currentAPI = document.querySelector(".api-select");
 window.addEventListener("load", () => getData(currentAPI.value));
 currentAPI.addEventListener("change", (evt) => getData(evt.target.value));
