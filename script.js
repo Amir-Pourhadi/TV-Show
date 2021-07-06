@@ -1,28 +1,38 @@
+/* ----------- Get Data from API by loading Page or Changing Movie ---------- */
 async function getData(url) {
 	try {
 		const { data } = await axios.get(url);
 
 		document.body.style.background = "linear-gradient(#4568dc, #b06ab3)";
-		const searchInput = document.querySelector(".form-control");
+		const searchInput = document.querySelector(".input-search input");
 		const episodeSelect = document.querySelector(".episode-select");
 
 		searchInput.value = "";
 		episodeSelect.innerText = "";
 
-		makeScrollBtn();
+		makeScrollUpBtn();
 		addEpisodes(data);
 		showCards(data, searchInput.value);
 
-		episodeSelect.addEventListener("change", () => showCards(data, episodeSelect.value));
-		searchInput.addEventListener("input", () => showCards(data, searchInput.value));
+		episodeSelect.addEventListener("change", () => {
+			searchInput.value = "";
+			showCards(data, episodeSelect.value);
+		});
+
+		searchInput.addEventListener("input", () => {
+			episodeSelect.value = "";
+			showCards(data, searchInput.value);
+		});
 	} catch (error) {
-		alert("If you live in Iran, You need to change your IP to access database! Refresh Page and Try Again!😭");
+		alert("You may need to change your IP to access database! Turn On your VPN, Refresh Page and Try Again!");
 	}
 }
 
+/* ----------- Show Movie Cards on Page Load and on Changing Movie ---------- */
 function showCards(data, value) {
 	document.querySelector("main").innerText = "";
 	const filteredData = search(data, value);
+
 	if (filteredData.length < 4) document.body.style.height = "100vh";
 	else document.body.style.removeProperty("height");
 
@@ -32,7 +42,7 @@ function showCards(data, value) {
 
 /* ------- Search Function Will filter Data and return array of Movies ------ */
 function search(data, value) {
-	const inputLabel = document.querySelector(".input-group-text");
+	const inputLabel = document.querySelector(".input-search label");
 	const footer = document.querySelector("footer");
 
 	if (!value) {
@@ -113,6 +123,7 @@ function createCard(url, name, season, number, image, summary) {
 	container.appendChild(card);
 }
 
+/* --------------------------- Some Util Functions -------------------------- */
 function getEpisodeNum(season, number) {
 	return `S${season.toString().padStart(2, "0")}E${number.toString().padStart(2, "0")}`;
 }
@@ -127,7 +138,7 @@ function shortDescText(summary) {
 	return result + ".";
 }
 
-/* ---------------------- Add Option to Episode Select ---------------------- */
+/* ---------------------- Add Options to Episode Select ---------------------- */
 function addEpisodes(data) {
 	const episodeSelect = document.querySelector(".episode-select");
 
@@ -146,16 +157,16 @@ function addEpisodes(data) {
 	}
 }
 
-/* ------------------------------ Scroll Button ----------------------------- */
-function makeScrollBtn() {
-	const scrollBtn = document.createElement("i");
-	scrollBtn.className = "scroll-btn fas fa-chevron-circle-up position-fixed invisible";
-	document.body.appendChild(scrollBtn);
+/* ------------------------------ ScrollUp Button ----------------------------- */
+function makeScrollUpBtn() {
+	const scrollUpBtn = document.createElement("i");
+	scrollUpBtn.className = "scroll-btn fas fa-chevron-circle-up position-fixed invisible";
+	document.body.appendChild(scrollUpBtn);
 
-	scrollBtn.addEventListener("click", () => (document.documentElement.scrollTop = 0));
+	scrollUpBtn.addEventListener("click", () => (document.documentElement.scrollTop = 0));
 }
 
-function showScrollBtn() {
+function showScrollUpBtn() {
 	const scrollBtn = document.querySelector(".scroll-btn");
 	document.documentElement.scrollTop > 600
 		? scrollBtn.classList.remove("invisible")
@@ -191,7 +202,8 @@ function makeHeaderSmaller(evt) {
 const currentAPI = document.querySelector(".api-select");
 window.addEventListener("load", () => getData(currentAPI.value));
 currentAPI.addEventListener("change", (evt) => getData(evt.target.value));
-window.addEventListener("scroll", showScrollBtn);
+
+window.addEventListener("scroll", showScrollUpBtn);
 
 window.addEventListener("load", makeHeaderSmaller);
 window.addEventListener("resize", makeHeaderSmaller);
