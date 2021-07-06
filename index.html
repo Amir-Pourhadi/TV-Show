@@ -28,8 +28,11 @@
 	</head>
 
 	<body>
+		<!-- Pride Month -->
 		<div class="pride-month"></div>
-		<header class="d-flex justify-content-evenly align-items-baseline pt-4 bg-dark">
+
+		<header class="d-flex justify-content-evenly align-items-baseline flex-sm-row flex-column pt-4 bg-dark">
+			<!-- API Select -->
 			<select class="api-select form-select form-select-lg mb-3">
 				<option value="https://api.tvmaze.com/shows/82/episodes" selected>Game of Thrones</option>
 				<option value="https://api.tvmaze.com/shows/527/episodes">The Sopranos</option>
@@ -38,13 +41,15 @@
 				<option value="https://api.tvmaze.com/shows/179/episodes">The Wire</option>
 			</select>
 
-			<div class="input-search input-group input-group-lg">
+			<!-- Search Input -->
+			<div class="input-search input-group input-group-lg mb-3">
 				<span class="input-group-text"></span>
 				<input type="text" class="form-control" placeholder="Live Search" />
 			</div>
-
+			<!-- Episode Select -->
 			<select class="episode-select form-select form-select-lg mb-3"></select>
 		</header>
+
 		<main class="d-flex flex-wrap justify-content-evenly"></main>
 
 		<script src="./script.js"></script>
