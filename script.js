@@ -16,7 +16,7 @@ async function getData(url) {
 		episodeSelect.addEventListener("change", () => showCards(data, episodeSelect.value));
 		searchInput.addEventListener("input", () => showCards(data, searchInput.value));
 	} catch (error) {
-		alert("If you live in Iran, You need to change your IP to access database! 😭");
+		alert("If you live in Iran, You need to change your IP to access database! Refresh Page and Try Again!😭");
 	}
 }
 
@@ -30,6 +30,7 @@ function showCards(data, value) {
 		createCard(url, name, season, number, image, summary);
 }
 
+/* ------- Search Function Will filter Data and return array of Movies ------ */
 function search(data, value) {
 	const inputLabel = document.querySelector(".input-group-text");
 	const footer = document.querySelector("footer");
@@ -41,7 +42,7 @@ function search(data, value) {
 		footer.classList.remove("invisible");
 		return data;
 	}
-	
+
 	inputLabel.classList.add("bg-success");
 	inputLabel.classList.remove("bg-danger");
 	footer.classList.add("invisible");
@@ -61,6 +62,7 @@ function search(data, value) {
 	return filteredData;
 }
 
+/* ----------------------- Create a Single Movie Card ----------------------- */
 function createCard(url, name, season, number, image, summary) {
 	const container = document.querySelector("main");
 
